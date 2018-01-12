@@ -1,3 +1,3 @@
 # Requested features :
 
-Currently none
+Map reduce syntax
