@@ -1,0 +1,27 @@
+{
+  "name": "jsonlad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WhoAteDaCake/jsonLad.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WhoAteDaCake/jsonLad/issues"
+  },
+  "homepage": "https://github.com/WhoAteDaCake/jsonLad#readme",
+  "dependencies": {
+    "jest": "^22.0.4",
+    "moo": "^0.4.3",
+    "nearley": "^2.11.0",
+    "ramda": "^0.25.0",
+    "shortid": "^2.2.8",
+    "sinon": "^4.1.3"
+  }
+}
