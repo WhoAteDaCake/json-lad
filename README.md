@@ -11,6 +11,7 @@ The syntax is very similar to javascript one:
 * `{}` Create new object
   * `{ key: value }` Create new object with values
   * `{ [key.value]: value }` Create new object where key is variable value
+  * `{ key: value, ...object }` Create object and copy properties from another one.
 * `Input` is the intial value that is supplied.
 * `Output` Value that will be returned after interpreter is ran
 

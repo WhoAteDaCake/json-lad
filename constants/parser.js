@@ -3,6 +3,7 @@ const TOKEN_CONFIG = {
   newObject: /{}/,
   printScope: /#+/,
   NL: { match: /\n/, lineBreaks: true },
+  spread: '...',
   ' ': ' ',
   ':': ':',
   '.': '.',

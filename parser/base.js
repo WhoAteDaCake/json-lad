@@ -1,8 +1,20 @@
 const { filter } = require('ramda');
 const utils = require('./utils');
 
+function objectEntry(type) {
+  return contents => {
+    const data = utils.clean(contents);
+    return { type, data: data[0] };
+  };
+}
+
 function newObject([{ col, line }]) {
   return { type: 'create', col, line, value: '{}' };
+}
+
+function object(contents) {
+  const entries = utils.clean(contents);
+  return { entries, type: 'object' };
 }
 
 function label([{ value, col, line }]) {
@@ -26,8 +38,4 @@ function pair(spec) {
   };
 }
 
-function object(contents) {
-  const pairs = filter(p => p.key !== undefined, utils.clean(contents));
-  return { pairs, type: 'object' };
-}
-module.exports = { label, newObject, variable, pair, object };
+module.exports = { label, newObject, variable, pair, object, objectEntry };

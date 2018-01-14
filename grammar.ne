@@ -15,7 +15,12 @@ LINE -> _ action ";" ( _ %NL ):* {% parser.line %}
 #actions
 action -> assign | printScope
 
-object -> "{" _ pair (_ "," _ pair):* _ "}" {% parser.base.object %}
+object -> "{" _ objectEntry (_ "," _ objectEntry):* _ "}" {% parser.base.object %}
+
+objectEntry ->
+    %spread variable {% parser.base.objectEntry('spread-object') %}
+  | pair {% parser.base.objectEntry('pair') %}
+
 pair ->
   label _ ":" _ value {% parser.base.pair('regular') %} |
   "[" variable "]" _ ":" _ value {% parser.base.pair('variableKey') %}

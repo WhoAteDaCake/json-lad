@@ -1,17 +1,43 @@
-const trace = require('./trace');
-const scope = require('./scope');
-const { pathOr, assocPath, append, clone, map, concat } = require('ramda');
+const trace = require('../trace');
+const scope = require('../scope');
+
+const {
+  pathOr,
+  assocPath,
+  append,
+  clone,
+  map,
+  concat,
+  reduce,
+} = require('ramda');
 
 const takePath = map(entry => entry.value);
 
-function fromObject(scopes, { pairs }) {
-  const result = {};
-  pairs.map(pair => {
-    const valueKey =
-      pair.spec === 'variableKey' ? from(scopes, pair.key) : pair.key.value;
-    result[valueKey] = from(scopes, pair.value);
-  });
-  return result;
+function objectPairEntry(scopes, entry) {
+  const valueKey =
+    entry.spec === 'variableKey' ? from(scopes, entry.key) : entry.key.value;
+  return { [valueKey]: from(scopes, entry.value) };
+}
+
+function objectSpreadEntry(scopes, entry) {
+  return clone(from(scopes, entry));
+}
+
+function fromObject(scopes, { entries }) {
+  return reduce(
+    (me, entry) => {
+      let value = {};
+      if (entry.type === 'pair') {
+        value = objectPairEntry(scopes, entry.data);
+      } else if (entry.type === 'spread-object') {
+        value = objectSpreadEntry(scopes, entry.data);
+      }
+
+      return Object.assign({}, me, value);
+    },
+    {},
+    entries
+  );
 }
 
 function fromVariable(scopes, data) {
